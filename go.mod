@@ -2,10 +2,7 @@ module github.com/hermescanuto/twitter-pic-downloader
 
 go 1.19
 
-require (
-	github.com/ChimeraCoder/anaconda v2.0.0+incompatible
-	github.com/joeshaw/envdecode v0.0.0-20200121155833-099f1fc765bd
-)
+require github.com/ChimeraCoder/anaconda v2.0.0+incompatible
 
 require (
 	github.com/ChimeraCoder/tokenbucket v0.0.0-20131201223612-c5a927568de7 // indirect
