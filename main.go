@@ -12,6 +12,7 @@ import (
 func main() {
 	fmt.Println("Twitter Downloader")
 	start := time.Now()
+	util.SetFolder()
 	payload := util.CheckUp()
 
 	log.Println("Profiles", payload)

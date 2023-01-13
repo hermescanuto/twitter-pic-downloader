@@ -18,8 +18,6 @@ type Screename struct {
 
 func CheckUp() []Screename {
 
-	SetFolder()
-
 	var payload []Screename
 
 	CheckFolder(filepath.Join(GetFolder(), "files"))
