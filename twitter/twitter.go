@@ -26,7 +26,9 @@ func New() *anaconda.TwitterApi {
 
 func GetTweeter(api *anaconda.TwitterApi, screenname string, done chan Result) {
 
-	folder := filepath.Join(util.GetFolder(), "img", screenname)
+	var DownloadFilePath, file, folder string
+
+	folder = filepath.Join(util.GetFolder(), "img", screenname)
 	util.CheckFolder(folder)
 	v := url.Values{}
 	v.Set("screen_name", screenname)
@@ -34,13 +36,16 @@ func GetTweeter(api *anaconda.TwitterApi, screenname string, done chan Result) {
 	searchResult, _ := api.GetUserTimeline(v)
 
 	a := 0
+
 	for _, tweet := range searchResult {
 		for _, v := range tweet.ExtendedEntities.Media {
-			file := filepath.Base(v.Media_url)
+
+			file = filepath.Base(v.Media_url)
+			DownloadFilePath = filepath.Join(folder, file)
 			if _, err := os.Stat(filepath.Join(folder, file)); os.IsNotExist(err) {
 				err := util.DownloadFile(filepath.Join(folder, file), v.Media_url)
 				if err == nil {
-					log.Println(screenname, file)
+					log.Println(screenname, file, DownloadFilePath)
 					a++
 				} else {
 					log.Println(err.Error())
@@ -49,5 +54,7 @@ func GetTweeter(api *anaconda.TwitterApi, screenname string, done chan Result) {
 
 		}
 	}
-	done <- Result{Screename: screenname, Total: a}
+	done <- Result{
+		Screename: screenname,
+		Total:     a}
 }
