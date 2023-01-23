@@ -21,22 +21,20 @@ func CheckUp() []Screename {
 	var payload []Screename
 
 	CheckFolder(filepath.Join(GetFolder(), "files"))
-	CheckFolder(filepath.Join(GetFolder(), "files"))
+	CheckFolder(filepath.Join(GetFolder(), "img"))
 
 	jsonfile := filepath.Join(GetFolder(), "files", "twitter.json")
 	data, err := ioutil.ReadFile(jsonfile)
 	if err != nil {
-		var item []Screename
-		item = append(item, Screename{Screenname: "hermes"})
-		e, err := json.MarshalIndent(item, "", "\t")
+		payload = append(payload, Screename{Screenname: "twitter"})
+		e, err := json.MarshalIndent(payload, "", "\t")
 		if err != nil {
 			log.Println(err)
 		}
 		contend := string(e)
-		log.Println(contend)
 		CreateJsonFile(jsonfile, contend)
+		log.Println(contend)
 		log.Println("Create the File")
-		payload = item
 	} else {
 		err = json.Unmarshal(data, &payload)
 		CatchGeneralError(&err)

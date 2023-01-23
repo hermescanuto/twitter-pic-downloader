@@ -39,7 +39,6 @@ func GetTweeter(api *anaconda.TwitterApi, screenname string, done chan Result) {
 
 	for _, tweet := range searchResult {
 		for _, v := range tweet.ExtendedEntities.Media {
-
 			file = filepath.Base(v.Media_url)
 			DownloadFilePath = filepath.Join(folder, file)
 			if _, err := os.Stat(filepath.Join(folder, file)); os.IsNotExist(err) {
@@ -51,7 +50,6 @@ func GetTweeter(api *anaconda.TwitterApi, screenname string, done chan Result) {
 					log.Println(err.Error())
 				}
 			}
-
 		}
 	}
 	done <- Result{
