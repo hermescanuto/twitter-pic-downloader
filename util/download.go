@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -24,7 +23,7 @@ func CheckUp() []Screename {
 	CheckFolder(filepath.Join(GetFolder(), "img"))
 
 	jsonfile := filepath.Join(GetFolder(), "files", "twitter.json")
-	data, err := ioutil.ReadFile(jsonfile)
+	data, err := os.ReadFile(jsonfile)
 	if err != nil {
 		payload = append(payload, Screename{Screenname: "twitter"})
 		e, err := json.MarshalIndent(payload, "", "\t")
